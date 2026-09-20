@@ -152,6 +152,29 @@
   }
   .detail-header .btn{margin-left:auto;}
 
+  /* ---- topic notes ---- */
+  .btn-note{
+    border:1px solid var(--primary);background:var(--primary-bg);color:var(--primary-dark);
+    border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;
+  }
+  .note-content{font-size:14px;line-height:1.7;}
+  .note-content h4{font-size:15px;color:var(--primary-dark);margin:20px 0 8px;padding-top:14px;border-top:1px solid var(--border);}
+  .note-content h4:first-child{margin-top:0;padding-top:0;border-top:none;}
+  .note-meta{font-size:12px;color:var(--text-sub);margin:0 0 10px;}
+  .note-lead{font-size:13.5px;color:var(--text);margin:8px 0;}
+  .note-subhead{font-size:13px;font-weight:700;color:var(--text);margin:14px 0 6px;}
+  .note-warn{font-size:13px;background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:8px 10px;margin:10px 0;}
+  .note-src{font-size:11.5px;color:var(--text-sub);margin:6px 0 0;}
+  .note-list{font-size:13.5px;margin:8px 0;padding-left:20px;}
+  .note-list li{margin-bottom:4px;}
+  .note-footer{font-size:11.5px;color:var(--text-sub);margin-top:20px;padding-top:10px;border-top:1px solid var(--border);}
+  .note-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table.note-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;border-collapse:collapse;font-size:12.5px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;}
+  table.note-table thead, table.note-table tbody{display:table;width:100%;min-width:100%;}
+  table.note-table th, table.note-table td{padding:7px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;}
+  table.note-table th{background:#fafbfc;color:var(--text-sub);font-weight:700;}
+  table.note-table tr:last-child td{border-bottom:none;}
+
   /* ---- stats ---- */
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
   .stat-tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
@@ -328,6 +351,207 @@ var TOPICS = ["安全衛生管理体制","安全衛生教育","健康管理・�
   "定期自主検査","健康管理手帳","計画届","コンサルタント制度","高圧則","作業主任者","長時間労働の面接指導",
   "ストレスチェック","じん肺健診等","その他"];
 
+var TOPIC_NOTES = {
+"粉じん則": `<p class="note-meta">労働衛生コンサルタント試験用。過去問9問・参考書3枚と法令を照合(2026年9月20日確認)。</p>
+<p class="note-lead">読む順番:<strong>場所 → 工具・機械 → 作業 → 設備 → 特例。</strong><br>設備の選択肢は「いずれか、又は同等以上の措置」であり、全部設置する意味ではない。</p>
+
+<h4>1|粉じん作業と特定粉じん作業</h4>
+<table class="note-table">
+<thead><tr><th>区分・条件</th><th>判定と基本の措置</th></tr></thead>
+<tbody>
+<tr><td>粉じん作業</td><td>別表第一の作業</td></tr>
+<tr><td>特定粉じん発生源</td><td>別表第二の15項目。一定の発生源対策が必要で、有効な対策が可能な発生源</td></tr>
+<tr><td>特定粉じん作業</td><td>発生源が上の15項目に該当する粉じん作業</td></tr>
+<tr><td>屋内の特定粉じん作業</td><td>作業ごとに指定された発生源対策(第2表)</td></tr>
+<tr><td>屋内の特定粉じん作業以外</td><td>全体換気等。別表第三などに該当すれば保護具も必要</td></tr>
+<tr><td>屋外の粉じん作業</td><td>特定粉じん発生源には該当しない。保護具等の規定は別途適用</td></tr>
+<tr><td>トンネル建設の坑内</td><td>特定・非特定を問わず換気等。特定発生源では発生源対策も必要</td></tr>
+<tr><td>その他の坑内の非特定粉じん作業</td><td>換気装置による換気等</td></tr>
+<tr><td>金属溶断・アーク溶接、耐火物の炉の解体</td><td>粉じん作業だが特定粉じん作業ではない</td></tr>
+</tbody>
+</table>
+<p class="note-warn">「有害性が特に高いから特定」「屋内だから必ず特定」「特定でなければ対策不要」は、いずれも不適切。アーク溶接には、特化則による溶接ヒューム対策もある。</p>
+<p class="note-src">根拠:粉じん則・第2〜6条の2、別表第一・第二/施行通達・特定粉じん発生源の考え方</p>
+
+<h4>2|15発生源と設備</h4>
+<p class="note-lead">密=密閉設備/局=局所排気装置/プ=プッシュプル型換気装置/湿=湿潤化設備。番号は別表第二。①〜④は坑内、⑤〜⑮は屋内。</p>
+<div class="note-scroll"><table class="note-table">
+<thead><tr><th>番号</th><th>作業</th><th>選べる措置</th></tr></thead>
+<tbody>
+<tr><td>①</td><td>動力による鉱物等の掘削</td><td><strong>湿</strong>。衝撃式削岩機は<strong>湿式型</strong></td></tr>
+<tr><td>②</td><td>動力による鉱物等の破砕・粉砕・ふるい分け</td><td><strong>密・湿</strong></td></tr>
+<tr><td>③</td><td>車両系建設機械による鉱物等の積込み・積卸し</td><td><strong>湿</strong></td></tr>
+<tr><td>④</td><td>コンベヤーへの鉱物等の積込み・積卸し(③を除く)</td><td><strong>湿</strong></td></tr>
+<tr><td>⑤</td><td>動力による岩石・鉱物の裁断・彫り・仕上げ</td><td><strong>局・プ・湿</strong></td></tr>
+<tr><td>⑥</td><td>研磨材の吹付けによる研磨、岩石・鉱物の彫り</td><td><strong>密・局</strong></td></tr>
+<tr><td>⑦</td><td>研磨材を用いた動力による研磨・ばり取り・金属裁断</td><td><strong>局・プ・湿</strong></td></tr>
+<tr><td>⑦例外</td><td>研削盤・ドラムサンダー等の<strong>回転体</strong>を使う</td><td><strong>局・湿</strong></td></tr>
+<tr><td>⑧</td><td>動力による鉱物等・炭素原料の破砕・粉砕・ふるい分け</td><td><strong>密・局・湿</strong></td></tr>
+<tr><td>⑧例外</td><td><strong>アルミニウムはく</strong>の破砕・粉砕・ふるい分け</td><td><strong>密・局</strong></td></tr>
+<tr><td>⑨</td><td>セメント・フライアッシュ・粉状鉱石・炭素原料/製品・アルミニウム・酸化チタンの袋詰め</td><td><strong>局・プ</strong></td></tr>
+<tr><td>⑩</td><td>粉状鉱石・炭素原料等の混合・混入・散布</td><td><strong>密・局・プ・湿</strong></td></tr>
+<tr><td>⑪</td><td>ガラス・ほうろう・陶磁器・耐火物・けい藻土製品・研磨材・炭素製品の製造工程での原料混合</td><td><strong>密・局・プ・湿</strong></td></tr>
+<tr><td>⑫</td><td>耐火レンガ・タイルの乾いた原料の動力による成形</td><td><strong>局・プ</strong></td></tr>
+<tr><td>⑬</td><td>陶磁器・耐火物・けい藻土製品・研磨材・炭素製品の半製品/製品の動力による仕上げ</td><td><strong>局・プ・湿</strong></td></tr>
+<tr><td>⑭</td><td>型ばらし装置による砂型破壊・砂落とし、動力による砂混練・鋳ばり取り</td><td><strong>密・局・プ</strong></td></tr>
+<tr><td>⑭例外</td><td>動力による<strong>砂再生</strong></td><td><strong>密・局</strong></td></tr>
+<tr><td>⑮</td><td>金属溶射</td><td><strong>密・局・プ</strong></td></tr>
+</tbody>
+</table></div>
+
+<p class="note-subhead">工具による除外条件</p>
+<table class="note-table">
+<thead><tr><th>特定発生源から除かれるもの</th><th>番号</th></tr></thead>
+<tbody>
+<tr><td><strong>手持式・可搬式</strong>動力工具</td><td>⑤・⑦</td></tr>
+<tr><td><strong>手持式</strong>動力工具</td><td>②・⑧・⑬・⑭の該当する動力作業</td></tr>
+<tr><td>ポータブルコンベヤー</td><td>④</td></tr>
+<tr><td>手持式溶射機</td><td>⑮</td></tr>
+</tbody>
+</table>
+<p class="note-warn">混合は4つ/袋詰め・成形は局プ/吹付け・アルミはく・砂再生は密局/回転研磨は局湿。「動く機械はすべて対象外」ではない。③の車両系建設機械は対象。</p>
+<p class="note-src">根拠:第4条・別表第二</p>
+
+<h4>3|適用除外と小型機械</h4>
+<table class="note-table">
+<thead><tr><th>場面</th><th>条件・残る措置</th></tr></thead>
+<tbody>
+<tr><td>第3条の対象作業を<strong>設備による注水・注油</strong>で行う</td><td>第2〜6章(設備・性能・管理・測定・保護具)は適用されない</td></tr>
+<tr><td><strong>臨時・短期間・短時間</strong>の特定粉じん作業</td><td>有効な保護具を使用すれば、第4条・第6条の2〜4の適用除外。トンネルの動力掘削・積卸しの保護具は防じん機能付き電動ファン型</td></tr>
+<tr><td>下記の<strong>小型機械</strong></td><td><strong>保護具+換気</strong>により第4条の設備対策を省略できる</td></tr>
+<tr><td>設備設置が<strong>著しく困難</strong></td><td><strong>労基署長の認定+保護具+換気</strong>により第4条を適用除外</td></tr>
+</tbody>
+</table>
+<p class="note-lead">小型機械・設置困難時の換気は、屋内では<strong>全体換気装置</strong>、坑内では<strong>換気装置</strong>による。</p>
+<table class="note-table">
+<thead><tr><th>小型機械</th><th>境界はすべて「未満」</th></tr></thead>
+<tbody>
+<tr><td>研削といし</td><td><strong>使用前の直径300 mm未満</strong></td></tr>
+<tr><td>破砕機・粉砕機</td><td><strong>最大能力20 kg/時未満</strong></td></tr>
+<tr><td>ふるい分け機</td><td><strong>ふるい面積700 cm2未満</strong></td></tr>
+<tr><td>混合機</td><td><strong>内容積18 L未満</strong></td></tr>
+</tbody>
+</table>
+<p class="note-subhead">注水・注油の特例が使える作業</p>
+<table class="note-table">
+<thead><tr><th>第3条の対象</th><th>作業の要点</th></tr></thead>
+<tbody>
+<tr><td>坑内の鉱物等</td><td>ふるい分け</td></tr>
+<tr><td>岩石・鉱物</td><td>裁断・彫り・仕上げ(別表第一⑥)</td></tr>
+<tr><td>研磨材を用いる動力作業</td><td>岩石・鉱物・金属の研磨・ばり取り、金属裁断</td></tr>
+<tr><td>鉱物等・炭素原料</td><td>動力ふるい分け、<strong>屋外</strong>の動力破砕・粉砕</td></tr>
+<tr><td>鋳物製造</td><td>砂再生</td></tr>
+</tbody>
+</table>
+<p class="note-warn">「湿潤化すれば、どんな粉じん作業でも適用除外」は誤り。第4条の湿潤化設備と第3条の特例を分ける。</p>
+<p class="note-src">根拠:第3・7〜9条</p>
+
+<h4>4|局排・プッシュプル・除じん装置</h4>
+<table class="note-table">
+<thead><tr><th>項目</th><th>正しい条件</th></tr></thead>
+<tbody>
+<tr><td>局排フード</td><td><strong>発生源ごと</strong>。外付け式は<strong>できるだけ近く</strong></td></tr>
+<tr><td>ダクト</td><td><strong>短く・曲がりを少なく・掃除しやすく</strong></td></tr>
+<tr><td>排風機</td><td>原則、<strong>除じん後</strong>の空気が通る位置</td></tr>
+<tr><td>排風機を除じん前に置く例外</td><td><strong>爆発のおそれなし+ファンの腐食・摩耗のおそれなし</strong></td></tr>
+<tr><td>排出口</td><td>原則、<strong>屋外</strong></td></tr>
+<tr><td>局排の屋内排出の例外</td><td><strong>移動式又は⑦の発生源用</strong>で、<strong>ろ過又は電気</strong>の除じん装置を付設</td></tr>
+<tr><td>プッシュプルの屋内排出の例外</td><td><strong>⑦の発生源用</strong>で、<strong>ろ過又は電気</strong>の除じん装置を付設</td></tr>
+<tr><td>局排等の稼働</td><td>対象作業中、有効に稼働</td></tr>
+<tr><td>除じん装置の稼働</td><td>局排・プッシュプルの稼働中、有効に稼働</td></tr>
+</tbody>
+</table>
+<p class="note-warn">ろ過・電気を付けただけでは、どの発生源でも屋内排出できるわけではない。固定式の鉱物粉砕⑧には、この例外を使えない。</p>
+<table class="note-table">
+<thead><tr><th>除じん装置の付設義務</th><th>発生源番号</th></tr></thead>
+<tbody>
+<tr><td>第4条による局排</td><td><strong>⑥・⑦・⑧・⑨・⑭・⑮</strong></td></tr>
+<tr><td>第4条によるプッシュプル</td><td><strong>⑦・⑨・⑭・⑮</strong></td></tr>
+</tbody>
+</table>
+<p class="note-lead">⑦は、1事業場に<strong>10以上の特定粉じん発生源</strong>を有する場合に限る(第7〜9条の適用除外に係るものを除いて数える)。</p>
+<table class="note-table">
+<thead><tr><th>粉じんの種類</th><th>法令に列挙された除じん方式</th></tr></thead>
+<tbody>
+<tr><td><strong>ヒューム</strong></td><td><strong>ろ過・電気</strong></td></tr>
+<tr><td><strong>ヒューム以外</strong></td><td><strong>サイクロン・スクラバ・ろ過・電気</strong></td></tr>
+</tbody>
+</table>
+<p class="note-lead">同等以上の性能を持つ方式も認められる。ヒュームは蒸気の凝縮によって生じる固体微粒子。「粉じん=ヒューム」ではない。</p>
+<p class="note-src">根拠:第10〜14条、労働安全衛生総合研究所・粉じんの種類</p>
+
+<p class="note-subhead">使用できないフード</p>
+<table class="note-table">
+<thead><tr><th>発生源・作業</th><th>使用できない型式</th></tr></thead>
+<tbody>
+<tr><td>⑤石の裁断、⑬圧縮空気によるちり払い、⑭型ばらし・砂落とし</td><td><strong>上方吸引型の外付け式</strong></td></tr>
+<tr><td>⑧破砕・粉砕</td><td><strong>下方吸引型の外付け式</strong></td></tr>
+<tr><td>⑥研磨材の吹付け、⑧ふるい分け、⑭砂再生</td><td><strong>外付け式全般</strong></td></tr>
+</tbody>
+</table>
+<p class="note-src">根拠:局排の要件を定める告示</p>
+
+<h4>5|呼吸用保護具</h4>
+<table class="note-table">
+<thead><tr><th>作業</th><th>原則として必要なもの</th></tr></thead>
+<tbody>
+<tr><td><strong>屋外で研磨材を吹き付ける</strong>研磨・彫り</td><td><strong>送気マスク又は空気呼吸器</strong>。全面形防じんマスクは代用不可</td></tr>
+<tr><td>屋外で研磨材を用いて<strong>工具で磨く</strong></td><td><strong>有効な呼吸用保護具</strong>。送気・空気の2種類には限定されない</td></tr>
+<tr><td>屋内の手持式・可搬式工具による研磨等</td><td><strong>有効な呼吸用保護具</strong>。全体換気等も必要</td></tr>
+<tr><td>トンネル建設の坑内での<strong>動力掘削・動力積卸し・コンクリート吹付け</strong></td><td>測定結果に応じた<strong>防じん機能を有する電動ファン付き呼吸用保護具</strong></td></tr>
+</tbody>
+</table>
+<p class="note-lead">通常の第27条第1項には、有効な発散防止措置を講じた場合の保護具使用の例外がある。トンネルの上記3作業は同条第3項の別枠。</p>
+<p class="note-warn">研磨材を吹く=送気・空気/トンネルでコンクリートを吹く=電動ファン。</p>
+<p class="note-src">根拠:第27条・別表第三</p>
+
+<h4>6|検査・測定・記録の数字</h4>
+<div class="note-scroll"><table class="note-table">
+<thead><tr><th>項目</th><th>対象・頻度</th><th>保存</th></tr></thead>
+<tbody>
+<tr><td>定期自主検査</td><td>対象の局排・プッシュプル・除じん装置:<strong>1年以内ごとに1回</strong></td><td><strong>3年</strong></td></tr>
+<tr><td>初回・改造等の点検</td><td><strong>初めて使用するとき/分解して改造・修理したとき</strong></td><td><strong>3年</strong></td></tr>
+<tr><td>屋内の粉じん濃度測定</td><td><strong>常時特定粉じん作業</strong>を行う屋内作業場:<strong>6か月以内ごとに1回</strong></td><td>測定・評価とも<strong>7年</strong></td></tr>
+<tr><td>トンネル建設の坑内の粉じん濃度測定</td><td>切羽に近接する場所:<strong>半月以内ごとに1回</strong></td><td><strong>7年</strong></td></tr>
+</tbody>
+</table></div>
+<ul class="note-list">
+<li>設備を<strong>1年を超えて使用しない期間</strong>は定期自主検査不要。<strong>再使用時に検査</strong>する。</li>
+<li>屋内の<strong>土石・岩石・鉱物</strong>に係る対象作業場では、遊離けい酸含有率も測定する。原料中の含有率が明らかなら省略可。</li>
+<li>トンネル建設でも遊離けい酸含有率を測定する。原料中の含有率が明らかなら省略可。濃度測定には、短いトンネル等で著しく困難な場合の例外がある。</li>
+</ul>
+<p class="note-warn">設備は3年、粉じん濃度の測定・評価は7年。「屋内で粉じんが出る」だけで6か月ごとの測定義務が決まるわけではない。</p>
+<p class="note-src">根拠:第6条の3・4、第17〜20条、第25〜26条の2</p>
+
+<h4>7|教育・清掃・休憩・管理区分</h4>
+<table class="note-table">
+<thead><tr><th>項目</th><th>必要な知識</th></tr></thead>
+<tbody>
+<tr><td>特別教育の対象</td><td><strong>常時特定粉じん作業</strong>に従事させる労働者</td></tr>
+<tr><td>教育科目</td><td>発散防止・換気/作業場管理/保護具/疾病・健康管理/関係法令</td></tr>
+<tr><td>屋内作業場所の清掃</td><td><strong>毎日1回以上</strong></td></tr>
+<tr><td>堆積粉じんの定期清掃</td><td>屋内作業場の床・設備等と屋内休憩設備の床等:<strong>1か月以内ごとに1回</strong>、真空掃除機・水洗等</td></tr>
+<tr><td>休憩設備</td><td>原則、<strong>粉じん作業場以外</strong>。粉じん除去用具を備え、利用前に衣服等の粉じんを除去</td></tr>
+<tr><td>発破後</td><td>粉じんが適当に薄まる前の接近を禁止</td></tr>
+</tbody>
+</table>
+<p class="note-lead">休憩設備は坑内等でやむを得ない場合、定期清掃は飛散しない方法が困難で有効な保護具を使用する場合に、それぞれ例外がある。</p>
+<table class="note-table">
+<thead><tr><th>作業環境の状態</th><th>対応</th></tr></thead>
+<tbody>
+<tr><td><strong>第2管理区分</strong></td><td>点検し、改善に<strong>努める</strong></td></tr>
+<tr><td><strong>第3管理区分</strong></td><td>直ちに改善し、<strong>第1又は第2</strong>を目指す。保護具・健康保持措置・改善後の測定と評価</td></tr>
+<tr><td>改善後も第3など</td><td><strong>外部の作業環境管理専門家</strong>の意見を聴く</td></tr>
+<tr><td>改善困難、又は専門家の意見による改善後も第3</td><td>個人サンプリング測定等による保護具選定、装着確認、保護具着用管理責任者の選任、周知・届出等</td></tr>
+</tbody>
+</table>
+<p class="note-lead">改善困難等の段階では、第1又は第2になるまで<strong>6か月以内ごとの個人サンプリング測定等</strong>を継続。面体を有する保護具の装着確認は<strong>1年以内ごと/記録3年</strong>。濃度の測定記録は<strong>7年</strong>。</p>
+<p class="note-warn">第2と第3は同じ義務ではない。改善目標も「必ず第1」ではない。</p>
+<p class="note-src">根拠:第22〜24条の2、第26条の3〜4</p>
+
+<p class="note-footer">出典:厚生労働省法令等データベース(粉じん障害防止規則)をもとにした学習用整理表。条文は必ず原文でご確認ください。</p>`
+};
+
 var QUESTIONS_KEY = "oshLawQuiz_questions_v1";
 var HISTORY_KEY = "oshLawQuiz_history_v1";
 
@@ -363,13 +587,13 @@ var SEED_QUESTIONS = [
     "question": "特定粉じん発生源に対して講ずべき措置に関する次の記述のうち、粉じん障害防止規則に照らして誤っているものはどれか（設備による注水・注油作業や臨時の作業などの適用除外は考慮しないものとする）。",
     "choices": [
       "坑内で衝撃式削岩機を用いて鉱物を掘削する箇所では、その機械を湿式型にするか、同等以上の措置を講ずる。",
-      "屋内で、手持式又は可搬式以外の動力工具を用いて岩石を彫るときは、排気装置、全体換気装置又は湿潤化設備の設置か、同等以上の措置を講ずる。",
+      "屋内で、手持式又は可搬式以外の動力工具を用いて岩石を彫るときは、局所排気装置、プッシュプル型換気装置又は湿潤化設備の設置か、同等以上の措置を講ずる。",
       "トンネル建設工事の内部で土石を機械で積み込む箇所では、湿潤化設備の設置か、同等以上の措置を講ずる。",
       "屋内の砂型鋳物製造工程で、手持式又は可搬式以外の動力工具を用いて砂を再生する箇所では、密閉設備、排気装置又は全体換気設備の設置か、同等以上の措置を講ずる。",
-      "屋内で粉状のアルミニウムを袋詰めする箇所では、排気装置又は全体換気設備の設置か、同等以上の措置を講ずる。"
+      "屋内で粉状のアルミニウムを袋詰めする箇所では、局所排気装置又はプッシュプル型換気装置の設置か、同等以上の措置を講ずる。"
     ],
     "answer": 4,
-    "explanation": "規則別表の定めによれば、砂再生箇所に対しては密閉設備又は排気装置のいずれかの設置が求められており、全体換気設備は認められていない。選択肢4はこの点で誤り。他の選択肢は規則の規定と一致する。",
+    "explanation": "坑内で衝撃式削岩機を用いて鉱物を掘削する箇所（選択肢1）は湿式型にするなどの措置で足り、規則の定めと一致する。屋内で岩石を彫る箇所（選択肢2）は局所排気装置、プッシュプル型換気装置又は湿潤化設備のいずれかで足り、規則の定めと一致する。トンネル建設工事の内部で機械により積み込む箇所（選択肢3）は湿潤化設備等で足り、規則の定めと一致する。屋内の砂型鋳物製造工程で動力工具（手持式・可搬式以外）を用いて砂を再生する箇所（選択肢4）に認められる措置は、密閉設備又は排気装置のいずれかに限られ、全体換気設備は認められていない。したがって選択肢4はこの点で誤り。屋内で粉状のアルミニウムを袋詰めする箇所（選択肢5）は局所排気装置又はプッシュプル型換気装置のいずれかで足り、規則の定めと一致する。",
     "sourceUrl": "https://osh-management.com/consultant/health/2012/low-question02/"
   },
   {
@@ -638,7 +862,7 @@ var SEED_QUESTIONS = [
       "屋内で粉状の酸化チタンを袋詰めする箇所には、局所排気装置又はプッシュプル型換気装置のいずれかを設置しなければならない。",
       "坑道内で土石を機械で積み込む作業を短期間に限り電動ファン付き呼吸用保護具を使用して行う場合、湿潤化設備の設置を要しない。",
       "陶磁器製造で最大処理能力が1時間あたり20キログラム未満の据付式粉砕機を用い、有効な呼吸用保護具を使用させる場合、密閉設備・排気装置に加え全体換気装置の設置も不要である。",
-      "屋外で研磨剤を用いて動力工具により金属を研磨する作業で有効な発散防止措置を講じない場合、臨時・短期間・短時間の作業を除き、送気マスク又は空気呼吸器を使用させなければならない。"
+      "屋外で研磨剤を吹き付けて金属を研磨する作業で有効な発散防止措置を講じない場合、臨時・短期間・短時間の作業を除き、送気マスク又は空気呼吸器を使用させなければならない。"
     ],
     "answer": 4,
     "explanation": "最大処理能力が1時間あたり20キログラム未満の据付式粉砕機を用いる場合、密閉設備や排気装置等の設置義務は除外されるが、屋内作業場では全体換気装置の設置義務は除外されずに残る。選択肢4は「全体換気装置等の設備も不要」としている点で誤り。他の選択肢は規則の規定と合致する。",
@@ -1644,7 +1868,7 @@ var SEED_QUESTIONS = [
       "全体換気装置を用いて換気を行う屋内の作業場において粉じん作業を行う場合、休憩設備を当該作業場内に設けてもよい。"
     ],
     "answer": 3,
-    "explanation": "手持式又は可搬式動力工具を用いないで鉱物を破砕・粉砕する箇所は特定粉じん発生源に該当し、密閉する設備、局所排気装置又は湿潤な状態を保つための設備のいずれかの設置が義務付けられており、この記述は正しい。可搬式工具による岩石を彫る作業は特定粉じん発生源以外の粉じん作業に区分され、工学的対策の設置義務はなく、呼吸用保護具の使用が原則となるため誤り。定期自主検査の記録の保存期間は3年間であり、5年間とする記述は誤り。屋外での吹き付けによる研磨作業では使用できる呼吸用保護具が送気マスク又は空気呼吸器に限られ、全面形防じんマスクは含まれないため誤り。粉じん作業に従事する労働者の休憩設備は作業場以外の場所に設けなければならず、作業場内への設置は認められないため誤り。",
+    "explanation": "手持式又は可搬式動力工具を用いないで岩石を彫る箇所は、規則別表第二第五号の特定粉じん発生源に該当する。この発生源に対して第4条で義務付けられる措置は、局所排気装置、プッシュプル型換気装置又は湿潤な状態に保つための設備のいずれかであり、選択肢1は湿潤化設備という選択肢を欠いたまま「局所排気装置又はプッシュプル型換気装置を設置しなければならない」としている点で誤り。定期自主検査の記録の保存期間は3年間であり、5年間とする選択肢2は誤り。手持式又は可搬式動力工具を用いないで鉱物を破砕・粉砕する箇所は特定粉じん発生源に該当し、密閉する設備、局所排気装置又は湿潤な状態に保つための設備のいずれかの設置が義務付けられており、選択肢3は正しい。屋外での吹き付けによる研磨作業では使用できる呼吸用保護具が送気マスク又は空気呼吸器に限られ、全面形防じんマスクは含まれないため選択肢4は誤り。粉じん作業に従事する労働者の休憩設備は原則として作業場以外の場所に設けなければならず、作業場内への設置を認める選択肢5は誤り。",
     "sourceUrl": "https://osh-management.com/consultant/health/2017/low-question02/"
   },
   {
@@ -4177,8 +4401,14 @@ function buildQuestionCard(q, isDetailMode){
   tagRow.appendChild(el("span",{class:"tag year", text:(q.year||"-")+"年"}));
   tagRow.appendChild(el("span",{class:"tag", text:q.topic}));
   tagRow.appendChild(el("span",{class:"tag", text:q.id}));
+  var noteBtn = null;
+  if(TOPIC_NOTES[q.topic]){
+    noteBtn = el("button",{class:"btn-note", text:"📘 分野解説"});
+    noteBtn.style.marginLeft="auto";
+    noteBtn.addEventListener("click", function(){ openTopicNote(q.topic); });
+  }
   var starBtn = el("button",{class:"btn-star"+(h.bookmarked?" active":""), text:h.bookmarked?"★":"☆"});
-  starBtn.style.marginLeft="auto";
+  starBtn.style.marginLeft = noteBtn ? "8px" : "auto";
   starBtn.addEventListener("click", function(){
     h.bookmarked = !h.bookmarked;
     saveHistory();
@@ -4187,7 +4417,7 @@ function buildQuestionCard(q, isDetailMode){
   });
   var tagWrap = el("div",{style:"display:flex;align-items:center;"});
   tagWrap.appendChild(tagRow);
-  card.appendChild(el("div",{style:"display:flex;align-items:flex-start;"},[tagRow, starBtn]));
+  card.appendChild(el("div",{style:"display:flex;align-items:flex-start;"},[tagRow, noteBtn, starBtn]));
 
   card.appendChild(el("p",{class:"q-text", text:q.question}));
 
@@ -4383,6 +4613,20 @@ function closeDetail(){
   renderList();
 }
 document.getElementById("btn-close-detail").addEventListener("click", closeDetail);
+
+function openTopicNote(topic){
+  var html = TOPIC_NOTES[topic];
+  if(!html) return;
+  var content = document.getElementById("detail-content");
+  content.innerHTML = "";
+  var wrap = el("div",{class:"card note-content"});
+  wrap.appendChild(el("h3",{style:"margin:0 0 10px;font-size:16px;", text:topic+" 分野解説"}));
+  var body = el("div",{});
+  body.innerHTML = html;
+  wrap.appendChild(body);
+  content.appendChild(wrap);
+  document.getElementById("detail-overlay").classList.add("show");
+}
 
 /* ============================================================
    成績タブ
