@@ -554,6 +554,10 @@ var TOPIC_NOTES = {
 
 var QUESTIONS_KEY = "oshLawQuiz_questions_v1";
 var HISTORY_KEY = "oshLawQuiz_history_v1";
+var SEED_VERSION_KEY = "oshLawQuiz_seedVersion_v1";
+/* 同梱の問題データを更新したら、この番号を必ず1つ増やす。
+   増やすと、次回アプリを開いたときに学習履歴を保ったまま問題データだけ最新化される。 */
+var SEED_VERSION = 3;
 
 /* ============================================================
    同梱データ（2025年度 労働衛生関係法令 15問）
@@ -4161,6 +4165,12 @@ function loadData(){
   try{
     history = hraw ? JSON.parse(hraw) : {};
   }catch(e){ history = {}; }
+
+  var storedVersion = parseInt(storageGet(SEED_VERSION_KEY), 10) || 0;
+  if(storedVersion < SEED_VERSION){
+    mergeQuestions(SEED_QUESTIONS);
+    storageSet(SEED_VERSION_KEY, String(SEED_VERSION));
+  }
 }
 function saveQuestions(){ storageSet(QUESTIONS_KEY, JSON.stringify(questions)); }
 function saveHistory(){ storageSet(HISTORY_KEY, JSON.stringify(history)); }
