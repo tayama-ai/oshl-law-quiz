@@ -4851,7 +4851,7 @@ document.getElementById("btn-reset-all").addEventListener("click", function(){
    文字サイズ調整
 ============================================================ */
 var FONT_SCALE_KEY = "oshLawQuiz_fontScale_v1";
-var FONT_SCALE_MIN = 0.8, FONT_SCALE_MAX = 1.6, FONT_SCALE_STEP = 0.1;
+var FONT_SCALE_MIN = 0.6, FONT_SCALE_MAX = 1.6, FONT_SCALE_STEP = 0.1;
 function loadFontScale(){
   var v = parseFloat(storageGet(FONT_SCALE_KEY));
   return (v && v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX) ? v : 1;
