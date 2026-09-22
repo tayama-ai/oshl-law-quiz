@@ -28,6 +28,7 @@
     --chip-bg:#eef1f2;
     --safe-bottom: env(safe-area-inset-bottom, 0px);
     --safe-top: env(safe-area-inset-top, 0px);
+    --txt-scale: 1;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);}
@@ -44,12 +45,22 @@
     border-bottom:1px solid var(--border);
     padding: calc(10px + var(--safe-top)) 16px 10px;
     display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:4px 10px;
   }
   #app-header h1{
     font-size:16px;margin:0;font-weight:700;color:var(--primary-dark);
     letter-spacing:.02em;
   }
   #app-header .sub{font-size:12px;color:var(--text-sub);}
+  #app-header .header-right{display:flex;align-items:center;gap:8px;margin-left:auto;}
+  .font-ctrl{display:flex;align-items:center;gap:2px;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .font-btn{
+    background:#fff;border:none;color:var(--primary-dark);font-weight:700;cursor:pointer;
+    width:30px;height:26px;display:flex;align-items:center;justify-content:center;line-height:1;
+  }
+  .font-btn:first-child{font-size:12px;border-right:1px solid var(--border);}
+  .font-btn:last-child{font-size:16px;}
+  .font-btn:active{background:var(--primary-bg);}
   main{max-width:640px;margin:0 auto;padding:12px 12px 24px;}
   .view{display:none;}
   .view.active{display:block;}
@@ -83,12 +94,12 @@
   .tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
   .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:12px;background:var(--chip-bg);color:var(--text-sub);}
   .tag.year{background:var(--primary-bg);color:var(--primary-dark);}
-  .q-text{white-space:pre-wrap;word-break:break-word;font-size:16px;line-height:1.75;margin:0 0 14px;}
+  .q-text{white-space:pre-wrap;word-break:break-word;font-size:calc(16px * var(--txt-scale));line-height:1.75;margin:0 0 14px;}
   .choices{display:flex;flex-direction:column;gap:9px;margin-bottom:6px;}
   .choice-btn{
     text-align:left;white-space:pre-wrap;word-break:break-word;
     border:1.5px solid var(--border);background:#fff;border-radius:10px;
-    padding:12px 12px;font-size:15px;line-height:1.55;color:var(--text);cursor:pointer;
+    padding:12px 12px;font-size:calc(15px * var(--txt-scale));line-height:1.55;color:var(--text);cursor:pointer;
     display:flex;gap:10px;
   }
   .choice-btn .num{flex:0 0 auto;font-weight:700;color:var(--primary);}
@@ -115,7 +126,7 @@
 
   .explain-box{
     background:var(--primary-bg);border:1px solid #cfe4e6;border-radius:10px;
-    padding:12px;margin-top:8px;white-space:pre-wrap;word-break:break-word;font-size:14.5px;color:#164047;
+    padding:12px;margin-top:8px;white-space:pre-wrap;word-break:break-word;font-size:calc(14.5px * var(--txt-scale));color:#164047;
   }
   .explain-box h4{margin:0 0 6px;font-size:13px;color:var(--primary-dark);}
   .result-banner{font-weight:700;font-size:14px;margin:4px 0 2px;padding:8px 10px;border-radius:8px;}
@@ -135,7 +146,7 @@
   }
   .list-item .row1{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
   .list-item .row1 .tags{display:flex;gap:6px;flex-wrap:wrap;}
-  .list-item .excerpt{font-size:14px;color:var(--text);white-space:pre-wrap;word-break:break-word;
+  .list-item .excerpt{font-size:calc(14px * var(--txt-scale));color:var(--text);white-space:pre-wrap;word-break:break-word;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   .list-item .meta{font-size:12px;color:var(--text-sub);margin-top:4px;}
   .star-mark{color:#c9971b;}
@@ -157,7 +168,7 @@
     border:1px solid var(--primary);background:var(--primary-bg);color:var(--primary-dark);
     border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;
   }
-  .note-content{font-size:14px;line-height:1.7;}
+  .note-content{font-size:calc(14px * var(--txt-scale));line-height:1.7;}
   .note-content h4{font-size:15px;color:var(--primary-dark);margin:20px 0 8px;padding-top:14px;border-top:1px solid var(--border);}
   .note-content h4:first-child{margin-top:0;padding-top:0;border-top:none;}
   .note-meta{font-size:12px;color:var(--text-sub);margin:0 0 10px;}
@@ -169,7 +180,7 @@
   .note-list li{margin-bottom:4px;}
   .note-footer{font-size:11.5px;color:var(--text-sub);margin-top:20px;padding-top:10px;border-top:1px solid var(--border);}
   .note-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-  table.note-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;border-collapse:collapse;font-size:12.5px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;}
+  table.note-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;border-collapse:collapse;font-size:calc(12.5px * var(--txt-scale));background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;}
   table.note-table thead, table.note-table tbody{display:table;width:100%;min-width:100%;}
   table.note-table th, table.note-table td{padding:7px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;}
   table.note-table th{background:#fafbfc;color:var(--text-sub);font-weight:700;}
@@ -217,7 +228,13 @@
 
 <div id="app-header">
   <h1>労働衛生関係法令 問題演習</h1>
-  <span class="sub" id="header-sub"></span>
+  <div class="header-right">
+    <span class="sub" id="header-sub"></span>
+    <div class="font-ctrl">
+      <button class="font-btn" id="btn-font-dec" aria-label="文字を小さく">A-</button>
+      <button class="font-btn" id="btn-font-inc" aria-label="文字を大きく">A+</button>
+    </div>
+  </div>
 </div>
 
 <main>
@@ -4829,6 +4846,31 @@ document.getElementById("btn-reset-all").addEventListener("click", function(){
   buildQueue(); renderPracticeHeader(); renderPracticeArea();
   showStatus("import-status","全データを初期化しました",true);
 });
+
+/* ============================================================
+   文字サイズ調整
+============================================================ */
+var FONT_SCALE_KEY = "oshLawQuiz_fontScale_v1";
+var FONT_SCALE_MIN = 0.8, FONT_SCALE_MAX = 1.6, FONT_SCALE_STEP = 0.1;
+function loadFontScale(){
+  var v = parseFloat(storageGet(FONT_SCALE_KEY));
+  return (v && v >= FONT_SCALE_MIN && v <= FONT_SCALE_MAX) ? v : 1;
+}
+function applyFontScale(v){
+  document.documentElement.style.setProperty("--txt-scale", v);
+}
+function setFontScale(v){
+  v = Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, Math.round(v*10)/10));
+  applyFontScale(v);
+  storageSet(FONT_SCALE_KEY, String(v));
+}
+document.getElementById("btn-font-dec").addEventListener("click", function(){
+  setFontScale(loadFontScale() - FONT_SCALE_STEP);
+});
+document.getElementById("btn-font-inc").addEventListener("click", function(){
+  setFontScale(loadFontScale() + FONT_SCALE_STEP);
+});
+applyFontScale(loadFontScale());
 
 /* ============================================================
    初期化
