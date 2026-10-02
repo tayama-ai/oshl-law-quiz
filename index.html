@@ -5150,7 +5150,7 @@ var PRACTICE_MODES = [
   {key:"year", label:"年次別"},
   {key:"topic", label:"分野別"},
   {key:"random", label:"ランダム"},
-  {key:"mistake", label:"間違えた問題"},
+  {key:"mistake_random", label:"間違えランダム"},
   {key:"unlearned_random", label:"未学習ランダム"},
   {key:"bookmark", label:"ブックマーク"},
   {key:"not_bookmark_random", label:"ブックマーク以外"}
@@ -5167,7 +5167,7 @@ function buildQueue(){
     case "topic":
       list = list.filter(function(q){ return session.topic ? q.topic===session.topic : true; });
       break;
-    case "mistake":
+    case "mistake_random":
       list = list.filter(function(q){ var h=history[q.id]; return h && h.isMistake; });
       break;
     case "unlearned_random":
@@ -5184,7 +5184,7 @@ function buildQueue(){
     default: break;
   }
   var ids = list.map(function(q){ return q.id; });
-  if(session.mode==="random" || session.mode==="unlearned_random" || session.mode==="not_bookmark_random"){
+  if(session.mode==="random" || session.mode==="unlearned_random" || session.mode==="not_bookmark_random" || session.mode==="mistake_random"){
     for(var i=ids.length-1;i>0;i--){
       var j = Math.floor(Math.random()*(i+1));
       var t = ids[i]; ids[i]=ids[j]; ids[j]=t;
