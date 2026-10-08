@@ -123,6 +123,8 @@
   .btn:disabled{opacity:.4;}
   .btn-star{font-size:20px;line-height:1;background:none;border:none;cursor:pointer;padding:2px 6px;}
   .btn-star.active{filter:none;}
+  .btn-skip{font-size:17px;line-height:1;background:none;border:none;cursor:pointer;padding:2px 6px;opacity:.35;filter:grayscale(1);}
+  .btn-skip.active{opacity:1;filter:none;}
 
   .explain-box{
     background:var(--primary-bg);border:1px solid #cfe4e6;border-radius:10px;
@@ -268,6 +270,7 @@
         <option value="bookmark">ブックマークのみ</option>
         <option value="mistake">間違えた問題のみ</option>
         <option value="unlearned">未学習のみ</option>
+        <option value="skipped">不要のみ</option>
       </select>
     </div>
     <div id="list-area"></div>
@@ -5044,7 +5047,7 @@ function saveHistory(){ storageSet(HISTORY_KEY, JSON.stringify(history)); }
 
 function defaultHistory(){
   return {attempts:0, correct:0, incorrect:0, consecutiveCorrect:0, isMistake:false,
-    bookmarked:false, memo:"", viewed:false, lastResult:null, lastAt:null};
+    bookmarked:false, skipped:false, memo:"", viewed:false, lastResult:null, lastAt:null};
 }
 function getHistory(id){
   if(!history[id]) history[id] = defaultHistory();
@@ -5089,7 +5092,7 @@ function mergeHistory(obj){
     history[id] = {
       attempts: h.attempts||0, correct:h.correct||0, incorrect:h.incorrect||0,
       consecutiveCorrect:h.consecutiveCorrect||0, isMistake: !!h.isMistake,
-      bookmarked: !!h.bookmarked, memo: h.memo||"", viewed: !!h.viewed,
+      bookmarked: !!h.bookmarked, skipped: !!h.skipped, memo: h.memo||"", viewed: !!h.viewed,
       lastResult: h.lastResult||null, lastAt: h.lastAt||null
     };
     n++;
@@ -5153,7 +5156,8 @@ var PRACTICE_MODES = [
   {key:"mistake_random", label:"間違えランダム"},
   {key:"unlearned_random", label:"未学習ランダム"},
   {key:"bookmark", label:"ブックマーク"},
-  {key:"not_bookmark_random", label:"ブックマーク以外"}
+  {key:"not_bookmark_random", label:"ブックマーク以外"},
+  {key:"skipped", label:"不要"}
 ];
 var session = { mode:"random", year:null, topic:null, queue:[], index:0 };
 var revealOnlyState = false;
@@ -5179,9 +5183,15 @@ function buildQueue(){
     case "not_bookmark_random":
       list = list.filter(function(q){ var h=history[q.id]; return !(h && h.bookmarked); });
       break;
+    case "skipped":
+      list = list.filter(function(q){ var h=history[q.id]; return h && h.skipped; });
+      break;
     case "random":
       break;
     default: break;
+  }
+  if(session.mode!=="year" && session.mode!=="topic" && session.mode!=="skipped"){
+    list = list.filter(function(q){ var h=history[q.id]; return !(h && h.skipped); });
   }
   var ids = list.map(function(q){ return q.id; });
   if(session.mode==="random" || session.mode==="unlearned_random" || session.mode==="not_bookmark_random" || session.mode==="mistake_random"){
@@ -5295,9 +5305,15 @@ function buildQuestionCard(q, isDetailMode){
     starBtn.textContent = h.bookmarked ? "★":"☆";
     starBtn.classList.toggle("active", h.bookmarked);
   });
+  var skipBtn = el("button",{class:"btn-skip"+(h.skipped?" active":""), text:"🚫", title:"不要(この問題はもう出題しない)"});
+  skipBtn.addEventListener("click", function(){
+    h.skipped = !h.skipped;
+    saveHistory();
+    skipBtn.classList.toggle("active", h.skipped);
+  });
   var tagWrap = el("div",{style:"display:flex;align-items:center;"});
   tagWrap.appendChild(tagRow);
-  card.appendChild(el("div",{style:"display:flex;align-items:flex-start;"},[tagRow, noteBtn, starBtn]));
+  card.appendChild(el("div",{style:"display:flex;align-items:flex-start;"},[tagRow, noteBtn, starBtn, skipBtn]));
 
   card.appendChild(el("p",{class:"q-text", text:q.question}));
 
@@ -5426,6 +5442,7 @@ function renderList(){
     if(filterMode==="bookmark"){ var h=history[q.id]; if(!(h&&h.bookmarked)) return false; }
     if(filterMode==="mistake"){ var h2=history[q.id]; if(!(h2&&h2.isMistake)) return false; }
     if(filterMode==="unlearned"){ if(isStudied(q.id)) return false; }
+    if(filterMode==="skipped"){ var h3=history[q.id]; if(!(h3&&h3.skipped)) return false; }
     if(keyword){
       var hay = [q.id,q.year,q.topic,q.subject,q.question].concat(q.choices).join(" ").toLowerCase();
       if(hay.indexOf(keyword)===-1) return false;
@@ -5467,6 +5484,7 @@ function renderList(){
     tags.appendChild(el("span",{class:"tag", text:q.topic}));
     row1.appendChild(tags);
     if(h && h.bookmarked) row1.appendChild(el("span",{class:"star-mark", text:"★"}));
+    if(h && h.skipped) row1.appendChild(el("span",{class:"star-mark", text:"🚫"}));
     item.appendChild(row1);
     item.appendChild(el("div",{class:"excerpt", text:q.question}));
     var metaText = q.id+"　回答"+(h?h.attempts:0)+"回"+(acc!==null?"　正答率"+acc+"%":"　未学習");
