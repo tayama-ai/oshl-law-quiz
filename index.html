@@ -5236,7 +5236,7 @@ function buildQueue(){
       break;
     default: break;
   }
-  if(session.mode!=="year" && session.mode!=="topic" && session.mode!=="recent" && session.mode!=="skipped"){
+  if(session.mode!=="year" && session.mode!=="topic" && session.mode!=="skipped"){
     list = list.filter(function(q){ var h=history[q.id]; return !(h && h.skipped); });
   }
   var ids = list.map(function(q){ return q.id; });
