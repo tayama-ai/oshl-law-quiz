@@ -5207,6 +5207,7 @@ var PRACTICE_MODES = [
   {key:"year", label:"年次別"},
   {key:"topic", label:"分野別"},
   {key:"recent", label:"2023-2025"},
+  {key:"recent_mistake", label:"2023-2025間違い"},
   {key:"random", label:"ランダム"},
   {key:"mistake_random", label:"間違えランダム"},
   {key:"unlearned_random", label:"未学習ランダム"},
@@ -5227,7 +5228,12 @@ function buildQueue(){
       list = list.filter(function(q){ return session.topic ? q.topic===session.topic : true; });
       break;
     case "recent":
-      list = list.filter(function(q){ return q.year>=2023 && q.year<=2025; });
+    case "recent_mistake":
+      list = list.filter(function(q){
+        if(!(q.year>=2023 && q.year<=2025)) return false;
+        if(session.mode==="recent_mistake"){ var hh=history[q.id]; return !!(hh && hh.isMistake); }
+        return true;
+      });
       list.sort(function(a,b){
         var ta=TOPICS.indexOf(a.topic), tb=TOPICS.indexOf(b.topic);
         if(ta!==tb) return ta-tb;
