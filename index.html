@@ -5492,6 +5492,15 @@ function buildQuestionCard(q, isDetailMode){
     session.index = (session.index+1) % (session.queue.length||1);
     renderPracticeArea();
   });
+  if(!isDetailMode){
+    var btnPrev = el("button",{class:"btn ghost small", text:"← 前の問題"});
+    btnPrev.addEventListener("click", function(){
+      var n = session.queue.length||1;
+      session.index = (session.index-1+n) % n;
+      renderPracticeArea();
+    });
+    actionRow.appendChild(btnPrev);
+  }
   actionRow.appendChild(btnExplainOnly);
   actionRow.appendChild(btnNext);
   card.appendChild(actionRow);
