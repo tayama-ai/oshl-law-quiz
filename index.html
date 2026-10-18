@@ -127,6 +127,8 @@
   .dust-opt .box{flex:0 0 auto;width:22px;height:22px;border:2px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;}
   .dust-opt.sel{border-color:var(--primary);background:var(--primary-bg);}
   .dust-opt.sel .box{background:var(--primary);border-color:var(--primary);}
+  .dust-opt.correct .box{background:var(--correct);border-color:var(--correct);}
+  .dust-opt.incorrect .box{background:var(--incorrect);border-color:var(--incorrect);}
   .dust-note{font-size:calc(13px * var(--txt-scale));line-height:1.7;color:var(--text-sub);margin:8px 0 0;white-space:pre-wrap;}
   .btn-skip{font-size:17px;line-height:1;background:none;border:none;cursor:pointer;padding:2px 6px;opacity:.35;filter:grayscale(1);}
   .btn-skip.active{opacity:1;filter:none;}
@@ -5582,7 +5584,7 @@ function buildDustCard(){
     DUST_OPTS.forEach(function(o){
       var want = item.ans.indexOf(o.k)>=0, got = !!selected[o.k];
       var b = btns[o.k].b;
-      b.classList.add("disabled");
+      b.classList.add("disabled"); b.classList.remove("sel");
       if(want && got){ b.classList.add("correct"); btns[o.k].box.textContent="✓"; }
       else if(want && !got){ b.classList.add("correct"); b.classList.add("faded"); btns[o.k].box.textContent="○"; ok=false; }
       else if(!want && got){ b.classList.add("incorrect"); btns[o.k].box.textContent="×"; ok=false; }
