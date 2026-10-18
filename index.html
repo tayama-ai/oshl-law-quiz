@@ -123,6 +123,11 @@
   .btn:disabled{opacity:.4;}
   .btn-star{font-size:20px;line-height:1;background:none;border:none;cursor:pointer;padding:2px 6px;}
   .btn-star.active{filter:none;}
+  .dust-opt{display:flex;align-items:center;gap:10px;}
+  .dust-opt .box{flex:0 0 auto;width:22px;height:22px;border:2px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;}
+  .dust-opt.sel{border-color:var(--primary);background:var(--primary-bg);}
+  .dust-opt.sel .box{background:var(--primary);border-color:var(--primary);}
+  .dust-note{font-size:calc(13px * var(--txt-scale));line-height:1.7;color:var(--text-sub);margin:8px 0 0;white-space:pre-wrap;}
   .btn-skip{font-size:17px;line-height:1;background:none;border:none;cursor:pointer;padding:2px 6px;opacity:.35;filter:grayscale(1);}
   .btn-skip.active{opacity:1;filter:none;}
 
@@ -5359,6 +5364,7 @@ document.querySelectorAll(".nav-btn").forEach(function(b){
 var PRACTICE_MODES = [
   {key:"year", label:"年次別"},
   {key:"topic", label:"分野別"},
+  {key:"dust", label:"特定粉じん発生源"},
   {key:"recent", label:"2023-2025"},
   {key:"recent_mistake", label:"2023-2025間違い"},
   {key:"random", label:"ランダム"},
@@ -5372,6 +5378,15 @@ var session = { mode:"random", year:null, topic:null, queue:[], index:0 };
 var revealOnlyState = false;
 
 function buildQueue(){
+  if(session.mode==="dust"){
+    var dids = DUST_ITEMS.map(function(d){ return d.id; });
+    for(var di=dids.length-1;di>0;di--){
+      var dj = Math.floor(Math.random()*(di+1));
+      var dt = dids[di]; dids[di]=dids[dj]; dids[dj]=dt;
+    }
+    session.queue = dids; session.index = 0;
+    return;
+  }
   var list = questions.slice();
   switch(session.mode){
     case "year":
@@ -5490,12 +5505,121 @@ function currentQuestion(){
   return null;
 }
 
+
+/* ============================================================
+   特定粉じん発生源(粉じん則4条・別表第2)ドリル
+============================================================ */
+var DUST_OPTS = [
+  {k:"湿", label:"湿潤な状態に保つための設備"},
+  {k:"局", label:"局所排気装置"},
+  {k:"プ", label:"プッシュプル型換気装置"},
+  {k:"密", label:"密閉する設備"}
+];
+var DUST_ITEMS = [
+  {id:"d01", no:"別表第2第1号", src:"坑内において、鉱物等を動力により掘削する箇所(衝撃式削岩機を用いて掘削する箇所を除く。)", ans:["湿"], note:"衝撃式削岩機を用いて掘削する箇所は、当該削岩機を湿式型とする。"},
+  {id:"d02", no:"別表第2第2号", src:"坑内の、鉱物等を動力(手持式動力工具によるものを除く。)により破砕し、粉砕し、又はふるい分ける箇所", ans:["密","湿"]},
+  {id:"d03", no:"別表第2第3号", src:"坑内の、鉱物等をずり積機等車両系建設機械により積み込み、又は積み卸す箇所", ans:["湿"]},
+  {id:"d04", no:"別表第2第4号", src:"鉱物等をコンベヤー(ポータブルコンベヤーを除く。)へ積み込み、又はコンベヤーから積み卸す箇所(ずり積機等車両系建設機械により積み込み、又は積み卸す箇所を除く。)", ans:["湿"]},
+  {id:"d05", no:"別表第2第5号", src:"屋内の、岩石又は鉱物を動力(手持式又は可搬式動力工具によるものを除く。)により裁断し、彫り、又は仕上げする箇所", ans:["局","プ","湿"]},
+  {id:"d06", no:"別表第2第6号", src:"屋内の、研磨材の吹き付けにより、研磨し、又は岩石若しくは鉱物を彫る箇所", ans:["密","局"]},
+  {id:"d07", no:"別表第2第7号(回転体を有する機械に係る箇所)", src:"屋内の、研磨材を用いて動力(手持式又は可搬式動力工具によるものを除く。)により、岩石、鉱物若しくは金属を研磨し、若しくはばり取りし、又は金属を裁断する箇所のうち、研削盤、ドラムサンダー等の回転体を有する機械を用いるもの", ans:["局","湿"], note:"回転体を有する機械では、プッシュプル型換気装置は含まれない(局所排気装置か湿潤化)。"},
+  {id:"d08", no:"別表第2第7号(回転体を有する機械に係る箇所以外)", src:"屋内の、研磨材を用いて動力(手持式又は可搬式動力工具によるものを除く。)により、岩石、鉱物若しくは金属を研磨し、若しくはばり取りし、又は金属を裁断する箇所のうち、回転体を有する機械に係る箇所以外のもの", ans:["局","プ","湿"]},
+  {id:"d09", no:"別表第2第8号", src:"屋内の、鉱物等、炭素原料又はアルミニウムはくを動力(手持式動力工具によるものを除く。)により破砕し、粉砕し、又はふるい分ける箇所(アルミニウムはくを破砕し、粉砕し、又はふるい分ける箇所を除く。)", ans:["密","局","湿"]},
+  {id:"d10", no:"別表第2第8号(アルミニウムはく)", src:"屋内の、アルミニウムはくを動力(手持式動力工具によるものを除く。)により破砕し、粉砕し、又はふるい分ける箇所", ans:["密","局"]},
+  {id:"d11", no:"別表第2第9号", src:"屋内の、セメント、フライアッシュ又は粉状の鉱石、炭素原料、炭素製品、アルミニウム若しくは酸化チタンを袋詰めする箇所", ans:["局","プ"]},
+  {id:"d12", no:"別表第2第10号", src:"屋内の、粉状の鉱石、炭素原料又はこれらを含む物を混合し、混入し、又は散布する箇所", ans:["密","局","プ","湿"]},
+  {id:"d13", no:"別表第2第11号", src:"屋内の、原料を混合する箇所(ガラス、耐火レンガ、タイル、けい藻土製品等の製造工程)", ans:["密","局","プ","湿"]},
+  {id:"d14", no:"別表第2第12号", src:"耐火レンガ又はタイルを製造する工程において、屋内の、原料(湿潤なものを除く。)を動力により成形する箇所", ans:["局","プ"]},
+  {id:"d15", no:"別表第2第13号", src:"屋内の、半製品又は製品を動力(手持式動力工具によるものを除く。)により仕上げする箇所", ans:["局","プ","湿"]},
+  {id:"d16", no:"別表第2第14号(砂を混練し、鋳ばり等を削り取る等の箇所)", src:"屋内の、型ばらし装置を用いて砂型を壊し、若しくは砂落としし、又は動力(手持式動力工具によるものを除く。)により砂を混練し、若しくは鋳ばり等を削り取る箇所", ans:["密","局","プ"]},
+  {id:"d17", no:"別表第2第14号(砂を再生する箇所)", src:"屋内の、動力(手持式動力工具によるものを除く。)により砂を再生する箇所", ans:["密","局"]},
+  {id:"d18", no:"別表第2第15号", src:"屋内の、手持式溶射機を用いないで金属を溶射する箇所", ans:["密","局","プ"]}
+];
+var DUST_KEY = "oshLawQuiz_dust_v1";
+function dustLoad(){ try{ return JSON.parse(localStorage.getItem(DUST_KEY)||"{}")||{}; }catch(e){ return {}; } }
+function dustSave(o){ try{ localStorage.setItem(DUST_KEY, JSON.stringify(o)); }catch(e){} }
+
+function buildDustCard(){
+  var item = null;
+  for(var i=0;i<DUST_ITEMS.length;i++){ if(DUST_ITEMS[i].id===session.queue[session.index]){ item=DUST_ITEMS[i]; break; } }
+  var card = el("div",{class:"card"});
+  if(!item){ card.appendChild(el("div",{class:"empty-state", text:"問題がありません。"})); return card; }
+  var stats = dustLoad(); var st = stats[item.id] || {a:0,c:0};
+
+  var tagRow = el("div",{class:"tag-row"});
+  tagRow.appendChild(el("span",{class:"tag year", text:"特定粉じん発生源"}));
+  tagRow.appendChild(el("span",{class:"tag", text:item.no}));
+  card.appendChild(tagRow);
+  card.appendChild(el("p",{class:"q-text", text:"次の特定粉じん発生源について、粉じん障害防止規則4条で定められている措置を、すべて選んでください(いずれか1つを講じればよい措置の一覧)。"}));
+  card.appendChild(el("p",{class:"q-text", text:"【発生源】\n"+item.src}));
+
+  var selected = {}; var done = false;
+  var wrap = el("div",{class:"choices"});
+  var btns = {};
+  DUST_OPTS.forEach(function(o){
+    var b = el("button",{class:"choice-btn dust-opt"});
+    var box = el("span",{class:"box", text:""});
+    b.appendChild(box); b.appendChild(el("span",{text:o.label}));
+    b.addEventListener("click", function(){
+      if(done) return;
+      selected[o.k] = !selected[o.k];
+      b.classList.toggle("sel", !!selected[o.k]);
+      box.textContent = selected[o.k] ? "✓" : "";
+      submit.disabled = !DUST_OPTS.some(function(x){ return selected[x.k]; });
+    });
+    btns[o.k] = {b:b, box:box};
+    wrap.appendChild(b);
+  });
+  card.appendChild(wrap);
+
+  var resultBox = el("div",{});
+  var submit = el("button",{class:"btn primary", text:"回答"});
+  submit.disabled = true;
+  submit.addEventListener("click", function(){
+    if(done) return;
+    done = true; submit.disabled = true;
+    var ok = true;
+    DUST_OPTS.forEach(function(o){
+      var want = item.ans.indexOf(o.k)>=0, got = !!selected[o.k];
+      var b = btns[o.k].b;
+      b.classList.add("disabled");
+      if(want && got){ b.classList.add("correct"); btns[o.k].box.textContent="✓"; }
+      else if(want && !got){ b.classList.add("correct"); b.classList.add("faded"); btns[o.k].box.textContent="○"; ok=false; }
+      else if(!want && got){ b.classList.add("incorrect"); btns[o.k].box.textContent="×"; ok=false; }
+      else { b.classList.add("faded"); }
+    });
+    stats[item.id] = {a:st.a+1, c:st.c+(ok?1:0)}; dustSave(stats);
+    var names = DUST_OPTS.filter(function(o){ return item.ans.indexOf(o.k)>=0; }).map(function(o){ return o.label; });
+    resultBox.appendChild(el("div",{class:"result-banner "+(ok?"ok":"ng"), text: ok?"正解です":"不正解です"}));
+    var exp = el("div",{class:"explain-box"});
+    exp.appendChild(el("h4",{text:"解説"}));
+    var lines = "正しい措置: "+names.join("、")+"(これらのいずれか、又はこれと同等以上の措置)\n根拠: 粉じん則4条・"+item.no;
+    if(item.note) lines += "\n"+item.note;
+    exp.appendChild(el("p",{class:"dust-note", text: lines}));
+    resultBox.appendChild(exp);
+  });
+  var actionRow = el("div",{class:"action-row"});
+  var prev = el("button",{class:"btn ghost small", text:"← 前"});
+  prev.addEventListener("click", function(){ var n=session.queue.length||1; session.index=(session.index-1+n)%n; renderPracticeArea(); });
+  var next = el("button",{class:"btn primary small", text:"次 →"});
+  next.addEventListener("click", function(){ session.index=(session.index+1)%(session.queue.length||1); renderPracticeArea(); });
+  actionRow.appendChild(prev); actionRow.appendChild(submit); actionRow.appendChild(next);
+  card.appendChild(actionRow);
+  card.appendChild(resultBox);
+  card.appendChild(el("p",{class:"dust-note", text:"この発生源の成績: "+st.c+"/"+st.a+"回正解"}));
+  return card;
+}
+
 function renderPracticeArea(){
   var area = document.getElementById("practice-area");
   area.innerHTML = "";
   document.getElementById("progress-text").textContent =
     session.queue.length ? ((session.index+1)+" / "+session.queue.length+"問") : "0 / 0問";
 
+  if(session.mode==="dust"){
+    area.appendChild(buildDustCard());
+    return;
+  }
   var q = currentQuestion();
   if(!q){
     area.appendChild(el("div",{class:"empty-state", text:"該当する問題がありません。出題モードを変更してください。"}));
