@@ -195,6 +195,20 @@
   table.note-table th{background:#fafbfc;color:var(--text-sub);font-weight:700;}
   table.note-table tr:last-child td{border-bottom:none;}
 
+  .rev-item{border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin:10px 0;background:#fff;}
+  .rev-item p{margin:6px 0;font-size:13.5px;line-height:1.7;}
+  .rev-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px;}
+  .rev-pri{font-weight:800;color:var(--primary);}
+  .rev-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;}
+  .rev-badge.new{background:#e3f4ea;color:#1b7a43;}
+  .rev-badge.chg{background:#fff1d6;color:#9a6200;}
+  .rev-badge.old{background:var(--chip-bg);color:var(--text-sub);}
+  .rev-meta{font-size:12px;color:var(--text-sub);margin:2px 0 6px;}
+  .rev-lab{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:6px;color:#fff;}
+  .rev-lab.b{background:#8a94a0;}
+  .rev-lab.a{background:var(--primary);}
+  .rev-lab.e{background:#b5651d;}
+  .rev-sub{background:#fafbfc;}
   /* ---- stats ---- */
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
   .stat-tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
@@ -1239,6 +1253,7 @@ var TOPIC_NOTES = {
 <p class="note-warn"><strong>これだけ覚える:</strong> 「医師である」だけでは足りず、産業医の資格要件が別にある。</p>
 <p class="note-footer">出典:厚生労働省・安全衛生情報センターの公開資料をもとにした学習用整理表。条文は必ず原文でご確認ください。</p>`,
 "2026年度の法改正": `<p class="note-meta">令和8年度試験の予想問題用。法令は2026年4月1日現在(e-Gov法令検索の同日時点)で確認。</p>
+<p class="note-warn">「これまで → 今回」の対比で読むには、下部メニューの「2026まとめ」タブを見てください。</p>
 <p class="note-lead"><strong>令和8年度試験の基準日は2026年4月1日。この日までに施行された改正が出題範囲。4月2日以降の施行は範囲外。</strong>公布済みでも未施行の内容は、現行(従来)の規定が答え。</p>
 
 <h4>範囲内:施行日別の一覧</h4>
@@ -5454,21 +5469,89 @@ var SUMMARY_HTML = `
 </ul>
 
 <h4>2. 2026年に押さえる改正(重要度順)</h4>
-<div class="note-scroll"><table class="note-table">
-<thead><tr><th>重要度</th><th>項目と施行日</th><th>内容の要点</th><th>問われ方の予想</th></tr></thead>
+<p class="note-lead">各項目を「これまで → 今回」の形で書いています。◎最重要 ○重要 △念のため。</p>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">◎</span><strong>熱中症対策</strong><span class="rev-badge new">新設</span></div>
+<div class="rev-meta">2025年6月1日施行 / 則612条の2</div>
+<p><span class="rev-lab b">これまで</span>安衛則に、熱中症についての具体的な義務規定はなかった(通達による指導が中心)。</p>
+<p><span class="rev-lab a">今回</span>暑熱な場所で連続して行う作業等、熱中症のおそれのある作業を行うときは、<strong>あらかじめ</strong>次の2つを行う義務が生じた。<br>①熱中症の自覚症状がある者、又は疑いのある者を他の作業従事者が発見した場合に、報告をさせる<strong>体制を整備</strong>し、周知する。<br>②<strong>作業場ごと</strong>に、作業からの離脱、身体の冷却、必要に応じた医師の診察・処置など、悪化を防ぐ措置の内容と手順を定め、周知する。</p>
+<p><span class="rev-lab e">出題の見方</span>「努力義務」「必ず医師の診察」は誤り(診察は必要に応じて)。条文にWBGT値の限定はない。WBGT28度以上又は気温31度以上、連続1時間以上又は1日4時間超という基準は、通達の目安。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">◎</span><strong>代替化学名等の通知</strong><span class="rev-badge new">新設</span></div>
+<div class="rev-meta">2026年4月1日施行 / 法57条の2第3項〜、則34条の2の6の2〜</div>
+<p><span class="rev-lab b">これまで</span>化学物質を譲渡・提供するときは、成分を通知する必要があった。営業秘密の成分を、別の名称(代替の化学名)で通知できる制度はなかった。</p>
+<p><span class="rev-lab a">今回</span>営業秘密である成分は、その旨を相手方に明示した上で、化学名の一部を省略・置換した<strong>代替化学名等</strong>で通知できるようになった。対象となる成分は、厚生労働大臣が定めるものに限る。<br>あわせて、通知に<strong>緊急連絡先</strong>を加える/代替化学名等を通知したら<strong>記録を5年保存</strong>、事業を廃止するときは記録を労働基準監督署長に引き渡す/医師が診断・治療のために求めたら、成分の情報を<strong>直ちに開示</strong>する。</p>
+<p><span class="rev-lab e">出題の見方</span>保存年数(5年)、対象成分は「全て」ではなく大臣が定めるものに限る、医師には開示する、がポイント。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">◎</span><strong>がん原性物質の事業廃止時の報告</strong><span class="rev-badge new">追加</span></div>
+<div class="rev-meta">2026年1月1日施行 / 則577条の2の2</div>
+<p><span class="rev-lab b">これまで</span>がん原性物質に係る健康診断個人票と、作業の記録(従事した作業の概要・期間等)は、事業者が30年間保存する義務があった。</p>
+<p><span class="rev-lab a">今回</span>新たに、がん原性物質を製造・取り扱う事業者が<strong>事業を廃止するとき</strong>は、がん原性物質関係記録等報告書に、個人票と記録(又はその写し)を添えて、<strong>所轄労働基準監督署長に提出</strong>する義務が加わった。</p>
+<p><span class="rev-lab e">出題の見方</span>提出先は労働基準監督署長。保存は30年(がん原性物質でない場合の5年や、記録の3年と取り違えさせる)。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">○</span><strong>皮膚等障害化学物質等の保護具</strong><span class="rev-badge chg">対象の明確化</span></div>
+<div class="rev-meta">2026年1月1日施行 / 則594条の2</div>
+<p><span class="rev-lab b">これまで</span>不浸透性の保護具の使用義務は、皮膚・眼に障害を与える、又は皮膚から吸収されて健康障害を生ずるおそれが「<strong>明らかなもの</strong>」が対象だった。</p>
+<p><span class="rev-lab a">今回</span>対象が、そのおそれが明らかな物として<strong>厚生労働大臣が定めるもの</strong>に限られるようになった(告示で対象を定める形)。使用が義務なのは、この物を取り扱う業務(密閉して取り扱う業務を除く)。それ以外の化学物質は、引き続き保護具の使用は努力義務(則594条の3)。</p>
+<p><span class="rev-lab e">出題の見方</span>義務と努力義務の区別(請負人への周知も、前者は義務)。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">◎</span><strong>石綿の事前調査(工作物)</strong><span class="rev-badge chg">範囲の拡大</span></div>
+<div class="rev-meta">2026年1月1日施行 / 石綿則3条4項、4条の2</div>
+<p><span class="rev-lab b">これまで</span>事前調査を、必要な知識を有する者として厚生労働大臣が定める者(有資格者)に行わせる義務の対象は、<strong>建築物と船舶</strong>の事前調査だけだった。工作物の事前調査には、この義務がなかった。</p>
+<p><span class="rev-lab a">今回</span><strong>工作物</strong>の事前調査も、有資格者が行うことになった(令和8年1月1日以降に着工する工事から)。大臣が定める特定の工作物(石綿等が使用されているおそれが高いもの。反応槽、加熱炉、ボイラー、焼却設備など)が主な対象で、それ以外の工作物は、塗料その他の石綿等が使用されているおそれがある材料の除去等の作業に係る事前調査に限る。</p>
+<p><span class="rev-lab e">出題の見方</span>有資格者の義務が、建築物・船舶だけでなく工作物にも広がった、という点。</p>
+</div>
+<div class="rev-item rev-sub">
+<div class="rev-head"><strong>石綿:3つの手続きの違い</strong><span class="rev-badge old">従来からの制度</span></div>
+<div class="rev-meta">今回の改正ではなく、以前から混同しやすい部分の整理</div>
+<table class="note-table">
+<thead><tr><th>手続き</th><th>いつ・何をする</th><th>基準</th></tr></thead>
 <tbody>
-<tr><td>◎</td><td><strong>熱中症対策</strong><br>2025年6月1日<br>則612条の2</td><td>暑熱な場所で連続して行う作業等、熱中症のおそれのある作業で、あらかじめ<br>①報告をさせる体制の整備と周知(自覚症状がある場合と、疑いを他の者が発見した場合)<br>②作業場ごとに、措置の内容と手順(作業離脱、身体の冷却、必要に応じた医師の診察・処置等)を定め周知<br>いずれも義務</td><td>「努力義務」「必ず医師の診察」の誤り。WBGT値による限定は条文になく通達の目安</td></tr>
-<tr><td>◎</td><td><strong>代替化学名等の通知</strong><br>2026年4月1日<br>法57条の2第3項〜</td><td>営業秘密の成分は、旨を明示して代替化学名等で通知できる。対象成分は大臣が定めるものに限る。緊急連絡先を通知。記録5年保存、事業廃止時は労働基準監督署長へ引渡し。医師の求めには成分を直ちに開示</td><td>保存年数(5年)、対象成分の限定、開示義務</td></tr>
-<tr><td>◎</td><td><strong>がん原性物質</strong><br>2026年1月1日<br>則577条の2の2</td><td>事業廃止時に、がん原性物質関係記録等報告書に健診個人票・記録を添えて労働基準監督署長に提出。記録・個人票は30年保存</td><td>報告先、保存年数(30年と5年・3年の取り違え)</td></tr>
-<tr><td>○</td><td><strong>皮膚等障害化学物質等</strong><br>2026年1月1日<br>則594条の2・594条の3</td><td>厚生労働大臣が定める物は不浸透性の保護具の使用が義務(密閉取扱いを除く)。請負人へは周知義務。それ以外の化学物質は努力義務</td><td>義務と努力義務の区別</td></tr>
-<tr><td>◎</td><td><strong>石綿の事前調査(工作物)</strong><br>2026年1月1日<br>石綿則3条4項・4条の2</td><td>大臣が定める特定の工作物は有資格者が事前調査。報告(80m²・100万円・20トン)と届出(吹付け石綿等の除去等)は別制度。事前調査自体は規模に関係なく必要</td><td>報告・届出・事前調査の混同。記録の年数(3年と40年)</td></tr>
-<tr><td>○</td><td><strong>電離放射線の特別教育</strong><br>2026年4月1日<br>電離則52条の5・47条</td><td>エックス線装置又はガンマ線照射装置を取り扱う業務の特別教育(遮へい構造の装置を使う業務を除く)。エックス線作業主任者の職務に、被ばくを少なくする作業方法の決定・指揮を追加</td><td>特別教育か技能講習か、作業主任者の種類</td></tr>
-<tr><td>○</td><td><strong>高年齢者の労働災害防止</strong><br>2026年4月1日<br>法62条の2</td><td>事業者の努力義務。大臣が指針を公表(エイジフレンドリー指針)</td><td>努力義務か義務か</td></tr>
-<tr><td>○</td><td><strong>個人事業者等の安全衛生</strong><br>注文者の配慮:2025年5月14日<br>元方事業者等の措置:2026年4月1日</td><td>注文者等は、安全で衛生的な作業を損なう条件を付さないよう配慮(法3条3項)。特定元方事業者等の措置の対象に、労働者でない作業従事者(個人事業者等)も含む(法30条)</td><td>対象に個人事業者等が含まれるか</td></tr>
-<tr><td>△</td><td><strong>特定自主検査・技能講習</strong><br>2026年1月1日</td><td>特定自主検査は大臣の基準に従う(法45条3項)。技能講習修了証の不正交付の禁止と、回収命令(都道府県労働局長。法76条の2)</td><td>命令権者(大臣か局長か)</td></tr>
+<tr><td>①事前調査<br>(則3条)</td><td>解体・改修の前に、石綿が使われているかを調べる。記録は3年保存</td><td><strong>規模に関係なく</strong>原則すべての工事で必要</td></tr>
+<tr><td>②事前調査結果の報告<br>(則4条の2、2022年4月〜)</td><td>①の結果を、労働基準監督署長に電子で報告する</td><td><strong>規模で決まる</strong>:建築物の解体は床面積80m²以上/建築物の改修は請負代金100万円以上/特定の工作物の解体・改修は請負代金100万円以上/船舶は総トン数20トン以上</td></tr>
+<tr><td>③作業の届出<br>(則5条)</td><td>吹付け石綿等の除去・封じ込め・囲い込みなどの作業をするとき、作業前に労働基準監督署長に届け出る</td><td><strong>作業の内容で決まる</strong>(床面積や金額の基準はない)</td></tr>
 </tbody>
-</table></div>
-<p class="note-warn"><strong>範囲外(未施行)のひっかけ:</strong> ストレスチェックの全事業場義務化(2028年4月)、通知の再通知義務化と罰則(2030年4月)、個人ばく露測定の作業環境測定士による実施(2026年10月)、個人事業者等への義務(2027年4月)は、2026年4月1日現在は従来どおり。「50人未満も義務」「再通知は義務」は誤り。</p>
+</table>
+<p class="note-lead">例:床面積50m²の建物の解体で吹付け石綿を除去する場合 → ①は必要、②は80m²未満なので不要、③は必要。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">○</span><strong>電離放射線の特別教育</strong><span class="rev-badge chg">範囲の拡大</span></div>
+<div class="rev-meta">2026年4月1日施行 / 電離則52条の5、47条、安衛則36条第28号</div>
+<p><span class="rev-lab b">これまで</span>特別教育の対象は、エックス線装置又はガンマ線照射装置を用いて行う<strong>透過写真の撮影の業務</strong>だった。</p>
+<p><span class="rev-lab a">今回</span>対象が、エックス線装置又はガンマ線照射装置を<strong>取り扱う業務</strong>に広がった(透過写真の撮影に限らない)。ただし、装置の内部にのみ管理区域があり、照射中に身体が内部に入らない遮へい構造の装置を使う業務は除く。特別教育規程の名称も「エックス線装置及びガンマ線照射装置取扱業務特別教育規程」に変わった。<br>あわせて、エックス線作業主任者の職務に、異常を認めたときの措置と、被ばくをできるだけ少なくする作業方法の決定・指揮が加わった。</p>
+<p><span class="rev-lab e">出題の見方</span>技能講習ではなく特別教育であること、遮へい構造の装置は除くこと。ガンマ線を用いた透過写真の撮影の作業主任者は、ガンマ線透過写真撮影作業主任者(管理区域ごとに選任)。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">○</span><strong>高年齢者の労働災害防止</strong><span class="rev-badge new">新設(努力義務)</span></div>
+<div class="rev-meta">2026年4月1日施行 / 法62条の2</div>
+<p><span class="rev-lab b">これまで</span>法律には、高年齢者の労働災害防止に関する規定はなかった(国のガイドライン等による取組の推進)。</p>
+<p><span class="rev-lab a">今回</span>事業者は、高年齢者の特性に配慮した作業環境の改善、作業の管理その他の必要な措置を講ずるよう<strong>努めなければならない</strong>(努力義務)。厚生労働大臣が指針を公表する(令和8年2月10日に「エイジフレンドリー指針」を公示)。</p>
+<p><span class="rev-lab e">出題の見方</span>「努力義務」であること。「義務」と書かれていたら誤り。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">○</span><strong>個人事業者等の安全衛生</strong><span class="rev-badge chg">対象の拡大</span></div>
+<div class="rev-meta">注文者の配慮:2025年5月14日 / 元方事業者等の措置:2026年4月1日</div>
+<p><span class="rev-lab b">これまで</span>法3条3項は「建設工事の注文者等」が対象で、施工方法・工期等について無理な条件を付さないよう配慮する規定だった。特定元方事業者等の措置(協議組織、作業間の連絡調整、巡視など)の対象は、自社と関係請負人の<strong>労働者</strong>だった。</p>
+<p><span class="rev-lab a">今回</span>法3条3項は「建設工事の注文者その他の仕事を他人に請け負わせる者」とされ、建設工事以外の注文者にも広く適用されることが明確になった。条件の例に作業方法・納期が加わった。特定元方事業者等の措置の対象に、<strong>労働者でない個人事業者等の作業従事者</strong>も含まれることになった(法30条等)。</p>
+<p><span class="rev-lab e">出題の見方</span>措置の対象に個人事業者等が含まれる、という記述は正しい。</p>
+</div>
+<div class="rev-item">
+<div class="rev-head"><span class="rev-pri">△</span><strong>特定自主検査・技能講習</strong><span class="rev-badge new">新設(義務の追加)</span></div>
+<div class="rev-meta">2026年1月1日施行 / 法45条3項、54条の6・54条の7、76条の2</div>
+<p><span class="rev-lab b">これまで</span>特定自主検査(フォークリフト等)は、事業者が資格を有する労働者又は検査業者に実施させるものだった。法律に「大臣の定める基準に従う」旨の規定はなかった。技能講習修了証の不正交付を、何人に対しても禁じる規定もなかった。</p>
+<p><span class="rev-lab a">今回</span>特定自主検査は<strong>厚生労働大臣の定める基準に従って</strong>行う。事業者(法人は代表者・役員)で資格を有する者が自ら実施することも可。検査業者が違反したときは、改善命令・登録取消し等ができる。何人も技能講習修了証等を不正に交付してはならず、回収等の命令は<strong>都道府県労働局長</strong>が行う。</p>
+<p><span class="rev-lab e">出題の見方</span>命令権者(厚生労働大臣ではなく都道府県労働局長)。</p>
+</div>
+<p class="note-warn"><strong>範囲外(未施行)のひっかけ</strong>:次の改正は、2026年4月1日現在は<strong>まだ始まっていない</strong>。
+<br>・ストレスチェック:現在は常時50人以上が義務、50人未満は当分の間、努力義務 → 全事業場の義務化は2028年4月1日。
+<br>・通知事項の変更時の再通知:現在は努力義務 → 義務化と罰則は2030年4月1日。
+<br>・個人ばく露測定:現在は作業環境測定士の要件なし → 作業環境測定士が実施するのは2026年10月1日から。
+<br>・個人事業者等への義務(2027年4月)、業務上災害の報告制度(2027年1月)。
+<br>「50人未満もストレスチェックは義務」「再通知は義務」などは、2026年4月1日現在は誤り。</p>
 
 <h4>3. 過去14年の出題傾向</h4>
 <p class="note-subhead">3-1. 形式(全210問の集計。文言からの自動判定で、多少の誤差あり)</p>
