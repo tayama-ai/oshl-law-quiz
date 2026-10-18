@@ -259,6 +259,11 @@
     <div id="practice-area"></div>
   </section>
 
+  <!-- ============ 2026まとめタブ ============ -->
+  <section id="view-summary" class="view">
+    <div class="card note-content" id="summary-body"></div>
+  </section>
+
   <!-- ============ 一覧タブ ============ -->
   <section id="view-list" class="view">
     <div class="search-bar">
@@ -351,6 +356,10 @@
   <button class="nav-btn active" data-view="practice">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
     <span>演習</span>
+  </button>
+  <button class="nav-btn" data-view="summary">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>2026まとめ</span>
   </button>
   <button class="nav-btn" data-view="list">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
@@ -5433,6 +5442,131 @@ function isStudied(id){
    タブ切替
 ============================================================ */
 var currentView = "practice";
+var SUMMARY_HTML = `
+<h3 style="margin:0 0 6px;font-size:17px;">2026年まとめ</h3>
+<p class="note-meta">法改正の重要項目と、過去14年(2012〜2025年、全210問)の出題傾向。法令は2026年4月1日現在。</p>
+
+<h4>1. 試験の前提</h4>
+<ul class="note-list">
+<li>令和8年度試験の筆記は<strong>2026年10月21日(水)</strong>。労働衛生関係法令は13:00〜14:00、択一15問。</li>
+<li>法令は<strong>2026年4月1日現在</strong>の施行分が範囲。4月2日以降に施行される改正は範囲外。</li>
+<li>詳しい整理は、演習タブの「📘 分野解説(2026年度の法改正)」と、予想問題(演習タブの「2026予想」)。</li>
+</ul>
+
+<h4>2. 2026年に押さえる改正(重要度順)</h4>
+<div class="note-scroll"><table class="note-table">
+<thead><tr><th>重要度</th><th>項目と施行日</th><th>内容の要点</th><th>問われ方の予想</th></tr></thead>
+<tbody>
+<tr><td>◎</td><td><strong>熱中症対策</strong><br>2025年6月1日<br>則612条の2</td><td>暑熱な場所で連続して行う作業等、熱中症のおそれのある作業で、あらかじめ<br>①報告をさせる体制の整備と周知(自覚症状がある場合と、疑いを他の者が発見した場合)<br>②作業場ごとに、措置の内容と手順(作業離脱、身体の冷却、必要に応じた医師の診察・処置等)を定め周知<br>いずれも義務</td><td>「努力義務」「必ず医師の診察」の誤り。WBGT値による限定は条文になく通達の目安</td></tr>
+<tr><td>◎</td><td><strong>代替化学名等の通知</strong><br>2026年4月1日<br>法57条の2第3項〜</td><td>営業秘密の成分は、旨を明示して代替化学名等で通知できる。対象成分は大臣が定めるものに限る。緊急連絡先を通知。記録5年保存、事業廃止時は労働基準監督署長へ引渡し。医師の求めには成分を直ちに開示</td><td>保存年数(5年)、対象成分の限定、開示義務</td></tr>
+<tr><td>◎</td><td><strong>がん原性物質</strong><br>2026年1月1日<br>則577条の2の2</td><td>事業廃止時に、がん原性物質関係記録等報告書に健診個人票・記録を添えて労働基準監督署長に提出。記録・個人票は30年保存</td><td>報告先、保存年数(30年と5年・3年の取り違え)</td></tr>
+<tr><td>○</td><td><strong>皮膚等障害化学物質等</strong><br>2026年1月1日<br>則594条の2・594条の3</td><td>厚生労働大臣が定める物は不浸透性の保護具の使用が義務(密閉取扱いを除く)。請負人へは周知義務。それ以外の化学物質は努力義務</td><td>義務と努力義務の区別</td></tr>
+<tr><td>◎</td><td><strong>石綿の事前調査(工作物)</strong><br>2026年1月1日<br>石綿則3条4項・4条の2</td><td>大臣が定める特定の工作物は有資格者が事前調査。報告(80m²・100万円・20トン)と届出(吹付け石綿等の除去等)は別制度。事前調査自体は規模に関係なく必要</td><td>報告・届出・事前調査の混同。記録の年数(3年と40年)</td></tr>
+<tr><td>○</td><td><strong>電離放射線の特別教育</strong><br>2026年4月1日<br>電離則52条の5・47条</td><td>エックス線装置又はガンマ線照射装置を取り扱う業務の特別教育(遮へい構造の装置を使う業務を除く)。エックス線作業主任者の職務に、被ばくを少なくする作業方法の決定・指揮を追加</td><td>特別教育か技能講習か、作業主任者の種類</td></tr>
+<tr><td>○</td><td><strong>高年齢者の労働災害防止</strong><br>2026年4月1日<br>法62条の2</td><td>事業者の努力義務。大臣が指針を公表(エイジフレンドリー指針)</td><td>努力義務か義務か</td></tr>
+<tr><td>○</td><td><strong>個人事業者等の安全衛生</strong><br>注文者の配慮:2025年5月14日<br>元方事業者等の措置:2026年4月1日</td><td>注文者等は、安全で衛生的な作業を損なう条件を付さないよう配慮(法3条3項)。特定元方事業者等の措置の対象に、労働者でない作業従事者(個人事業者等)も含む(法30条)</td><td>対象に個人事業者等が含まれるか</td></tr>
+<tr><td>△</td><td><strong>特定自主検査・技能講習</strong><br>2026年1月1日</td><td>特定自主検査は大臣の基準に従う(法45条3項)。技能講習修了証の不正交付の禁止と、回収命令(都道府県労働局長。法76条の2)</td><td>命令権者(大臣か局長か)</td></tr>
+</tbody>
+</table></div>
+<p class="note-warn"><strong>範囲外(未施行)のひっかけ:</strong> ストレスチェックの全事業場義務化(2028年4月)、通知の再通知義務化と罰則(2030年4月)、個人ばく露測定の作業環境測定士による実施(2026年10月)、個人事業者等への義務(2027年4月)は、2026年4月1日現在は従来どおり。「50人未満も義務」「再通知は義務」は誤り。</p>
+
+<h4>3. 過去14年の出題傾向</h4>
+<p class="note-subhead">3-1. 形式(全210問の集計。文言からの自動判定で、多少の誤差あり)</p>
+<ul class="note-list">
+<li>イ〜ニ(ホ)を組み合わせる形式は56問(約27%)。残り154問は単純選択で、「誤っているもの」を選ぶ型が約76問、「正しいもの」を選ぶ型が約78問。</li>
+<li>正答の番号は3が52問、4が45問、5が42問、2が38問、1が33問。大きな偏りはない。</li>
+</ul>
+
+<p class="note-subhead">3-2. 問題番号ごとの出題分野(14回分。このアプリの分類による回数)</p>
+<div class="note-scroll"><table class="note-table">
+<thead><tr><th>問</th><th>よく出る分野(14回中の回数)</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>安全衛生管理体制 13回</strong>(衛生管理者の選任等は14年すべての問1で出題)</td></tr>
+<tr><td>2</td><td>粉じん則6、計画届3、大臣の規格3</td></tr>
+<tr><td>3</td><td>じん肺健診等6、粉じん則3、化学物質規制3</td></tr>
+<tr><td>4</td><td>高圧則4、電離則3、酸欠則2、安全衛生教育2</td></tr>
+<tr><td>5</td><td>電離則4、酸欠則3、作業環境測定2</td></tr>
+<tr><td>6</td><td>事務所則6、その他2</td></tr>
+<tr><td>7</td><td>健康管理・健康診断4、一般衛生基準3、長時間労働の面接指導2、計画届2</td></tr>
+<tr><td>8</td><td>一般衛生基準4、健康管理・健康診断3、安全衛生教育3、有機則2</td></tr>
+<tr><td>9</td><td>一般衛生基準4、有機則3、長時間労働の面接指導2</td></tr>
+<tr><td>10</td><td>大臣の規格4、特化則4、作業環境測定2</td></tr>
+<tr><td>11</td><td>作業環境測定6、安全衛生教育2、高圧則2、電離則2</td></tr>
+<tr><td>12</td><td>有機則5、酸欠則4、大臣の規格2</td></tr>
+<tr><td>13</td><td><strong>化学物質規制7</strong>、事務所則4、鉛則2</td></tr>
+<tr><td>14</td><td>特化則5、<strong>石綿則4</strong>、鉛則3</td></tr>
+<tr><td>15</td><td><strong>石綿則6、じん肺健診等5</strong>、特化則2</td></tr>
+</tbody>
+</table></div>
+
+<p class="note-subhead">3-3. 分野別の出題数(14年・全210問)</p>
+<div class="note-scroll"><table class="note-table">
+<thead><tr><th>分野</th><th>問数</th><th>出題された年</th></tr></thead>
+<tbody>
+<tr><td>有機則</td><td>14</td><td>12回の年</td></tr>
+<tr><td>安全衛生管理体制</td><td>13</td><td>13回の年</td></tr>
+<tr><td>化学物質規制</td><td>12</td><td>11回の年</td></tr>
+<tr><td>作業環境測定、特化則</td><td>各12</td><td>各12回の年</td></tr>
+<tr><td>酸欠則、電離則、健康管理・健康診断、一般衛生基準、大臣の規格、事務所則、じん肺健診等</td><td>各11</td><td>10〜11回の年</td></tr>
+<tr><td>安全衛生教育、石綿則</td><td>各10</td><td>10回の年</td></tr>
+<tr><td>粉じん則、高圧則、鉛則</td><td>各9、9、8</td><td>8〜9回の年</td></tr>
+<tr><td>計画届、長時間労働の面接指導、ストレスチェック、その他</td><td>各6、5、3、2</td><td>少数</td></tr>
+</tbody>
+</table></div>
+<p class="note-lead">ほぼ毎年出る分野(14年中10回以上の年に出題):有機則、安全衛生管理体制、化学物質規制、作業環境測定、特化則、酸欠則、電離則、健康管理・健康診断、一般衛生基準、大臣の規格、事務所則、じん肺健診等、安全衛生教育、石綿則。</p>
+
+<p class="note-subhead">3-4. 繰り返し出る論点(14年・当アプリ集計)</p>
+<ul class="note-list">
+<li><strong>防毒マスクの規格の対象</strong>:硫化水素用・青酸ガス用は対象外(2012年問12、2014年問12、2015年問10、2018年問10、2019年問10、2024年問2)。</li>
+<li><strong>全体換気装置</strong>に触れる問題・選択肢が21問に登場(局所排気装置等との関係、設置義務が残る場合など)。</li>
+<li><strong>管理区分</strong>(作業環境の評価とじん肺の両方)が19問に登場。じん肺そのものは13問。</li>
+<li><strong>特別の教育</strong>:8問(2015年問4、2016年問15、2018年問2、2021年問4・15、2023年問4・9、2025年問14)。</li>
+<li><strong>酸素濃度18%</strong>(酸欠則):6問(2015、2017、2019、2022、2023、2025年)。</li>
+<li><strong>第三種有機溶剤</strong>に関する出題が8問。</li>
+<li>「40年」が登場する問題が5問(主に石綿関係の保存期間)。</li>
+<li><strong>期間・頻度の数字</strong>:「6か月以内ごと」が52問、「1年以内ごと」が35問の選択肢・問題文に登場。「3年間」が16問、「5年間」が13問、「30年」が7問、「40年」が5問、「7年間」が3問に登場(保存期間以外の用法も含む)。</li>
+</ul>
+
+<p class="note-subhead">3-5. 改正と出題の関係</p>
+<ul class="note-list">
+<li>2022年4月施行の石綿の事前調査結果等の報告制度は、2023年問14で出題(請負代金100万円・床面積80m²の基準)。</li>
+<li>2024年4月施行の化学物質管理者の選任義務は、2025年問3で出題。</li>
+<li>2025年問14も石綿(報告の対象となる船舶の総トン数)。石綿は2023年、2025年と、直近3年のうち2回出題。</li>
+<li>改正から1〜2年以内の内容が、翌年の試験で出る例がある。これらの出題は、予想の根拠として参考になるが、毎回そうなるとは限らない。</li>
+</ul>
+
+<p class="note-subhead">3-6. ひっかけの型(過去問の共通点)</p>
+<ul class="note-list">
+<li><strong>数字の入れ替え</strong>:保存年数(3・5・7・30・40年)、測定・点検の頻度(6か月・1年)、規模(50人・100万円・80m²・20トン)。</li>
+<li><strong>義務と努力義務</strong>:「努めなければならない」を「しなければならない」と置き換える。</li>
+<li><strong>例外・適用除外</strong>:臨時・短期間・短時間の作業、有効な呼吸用保護具を使用させる場合の設備の免除、ただし全体換気装置は残る、等。</li>
+<li><strong>主体・提出先の取り違え</strong>:厚生労働大臣、都道府県労働局長、労働基準監督署長(許可・認定・届出・報告)。</li>
+<li><strong>対象物の取り違え</strong>:製造禁止物質と製造許可物質、表示事項と通知事項、規格・型式検定・自主検査。</li>
+<li><strong>限定語</strong>:「すべて」「のみ」「限る」「必ず」。</li>
+</ul>
+
+<h4>4. 2026年の山(過去の位置傾向と改正からの推測)</h4>
+<ul class="note-list">
+<li><strong>問1:</strong>安全衛生管理体制(衛生管理者の選任等)。14年すべてで出題。改正の影響は少ない。</li>
+<li><strong>問13前後:</strong>化学物質規制。代替化学名等、がん原性物質、皮膚等障害化学物質、化学物質管理者、表示・通知・リスクアセスメントの区別。</li>
+<li><strong>問14・15前後:</strong>石綿則(工作物の事前調査、報告・届出・記録の年数)、特化則、じん肺健診等。</li>
+<li><strong>衛生基準:</strong>熱中症(則612条の2)は、新設でわかりやすく、出題されやすい。</li>
+<li><strong>電離則・粉じん則・酸欠則:</strong>毎年のように出る分野。特別教育、作業主任者、特定粉じん発生源の措置を確認。</li>
+</ul>
+<p class="note-warn">位置と分野の対応は、過去の傾向からの推測であり、本番の出題を保証するものではありません。</p>
+
+<h4>5. 学習の導線</h4>
+<ul class="note-list">
+<li>演習タブ「2026予想」(15問)で改正点を確認し、間違えた問題は「間違えランダム」へ。</li>
+<li>各問題の「📘 分野解説」で分野ごとの要点を確認。</li>
+<li>「2023-2025」タブで、直近3年(45問)を分野ごとの並びで復習。</li>
+</ul>
+<p class="note-footer">出典:e-Gov法令検索(2026年4月1日時点)、安全衛生情報センターの法令改正概要一覧、厚生労働省の改正安衛法パンフレット、このアプリの過去問210問の集計。条文は必ず原文でご確認ください。</p>
+`;
+function renderSummary(){
+  var b = document.getElementById("summary-body");
+  if(!b.getAttribute("data-ready")){ b.innerHTML = SUMMARY_HTML; b.setAttribute("data-ready","1"); }
+}
 function switchView(v){
   currentView = v;
   document.querySelectorAll(".view").forEach(function(s){ s.classList.remove("active"); });
@@ -5440,6 +5574,7 @@ function switchView(v){
   document.querySelectorAll(".nav-btn").forEach(function(b){
     b.classList.toggle("active", b.getAttribute("data-view")===v);
   });
+  if(v==="summary") renderSummary();
   if(v==="list") renderList();
   if(v==="stats") renderStats();
   if(v==="data") renderData();
